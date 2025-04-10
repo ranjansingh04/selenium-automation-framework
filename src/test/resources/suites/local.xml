@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="HerokuAppTests" verbose="1">
+
+    <test name="Login Tests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.ranjansingh.test.LoginTest"/>
+        </classes>
+    </test>
+    <test name="JS Alert Tests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.ranjansingh.test.JSAlertsTest"/>
+        </classes>
+    </test>
+
+</suite>
