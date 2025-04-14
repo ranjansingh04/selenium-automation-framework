@@ -63,16 +63,19 @@ Before using this framework, ensure that you have the following installed:
 3. Run Tests:
    Use Maven to execute test cases:
    ```bash
-   mvn test
+   mvn test 
+   ```  
    Alternatively, run specific test suites using:
    ```bash
    mvn test -DsuiteXmlFile=<suite-name>.xml
+   ```
 4. View Test Reports:
    After execution, detailed test reports can be found in the target/surefire-reports directory.
 
 ---
 
 ## Project Structure
+```text
 selenium-automation-framework/
 ├── src
     ├── main
@@ -106,7 +109,7 @@ selenium-automation-framework/
                 ├── general.properties
                 ├── local.properties
                 └── selenium-grid.properties
-
+```
 
 ---
 
