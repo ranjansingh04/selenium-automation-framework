@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,4 +65,10 @@ public interface Configuration extends Config {
 
     @Key("PASSWORD")
     String password();
+
+    @Key("LT_USERNAME")
+    String ltUsername();
+
+    @Key("LT_ACCESS_KEY")
+    String ltAccessKey();
 }

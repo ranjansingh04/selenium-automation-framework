@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ import static java.util.stream.Collectors.toMap;
 public enum Target {
 
     LOCAL("local"), LOCAL_SUITE("local-suite"), SELENIUM_GRID("selenium-grid"),
-    TESTCONTAINERS("testcontainers");
+    TESTCONTAINERS("testcontainers"), LAMBDATEST("lambdatest");
 
     private final String value;
     private static final Map<String, Target> ENUM_MAP;

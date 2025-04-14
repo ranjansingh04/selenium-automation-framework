@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.ranjansingh.utils.ActionUtils;
+import com.ranjansingh.utils.AlertUtils;
+
 public class JavaScriptAlertsPage extends AbstractPageObject {
 
     private static final String PATH = "/javascript_alerts";
@@ -47,37 +50,37 @@ public class JavaScriptAlertsPage extends AbstractPageObject {
 
     @Step
     public void open() {
-        super.navigateTo(PATH);
+        ActionUtils.navigateTo(PATH);
     }
 
     @Step
     public void clickJSAlert() {
-        click(jsAlertButton);
+        ActionUtils.click(jsAlertButton);
     }
 
     @Step
     public void acceptJSAlert() {
-        acceptAlert();
+        AlertUtils.acceptAlert();
     }
 
     @Step
     public void clickJSConfirm() {
-        click(jsConfirmButton);
+        ActionUtils.click(jsConfirmButton);
     }
 
     @Step
     public void dismissJSAlert() {
-        dismissAlert();
+        AlertUtils.dismissAlert();
     }
 
     @Step
     public void clickJSPrompt() {
-        click(jsPromptButton);
+        ActionUtils.click(jsPromptButton);
     }
 
     @Step
     public void sendTextToJSAlert(String text) {
-        sendKeysToAlert(text);
+        AlertUtils.sendTextToAlert(text);
     }
 
     @Step

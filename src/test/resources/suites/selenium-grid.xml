@@ -11,7 +11,7 @@
     <test name="JS Alert Tests">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="com.ranjansingh.test.JSAlertsTests"/>
+            <class name="com.ranjansingh.test.JSAlertsTest"/>
         </classes>
     </test>
 

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,40 +39,4 @@ public class AbstractPageObject {
     protected AbstractPageObject() {
         initElements(new AjaxElementLocatorFactory(DriverManager.getDriver(), configuration().timeout()), this);
     }
-
-    protected void navigateTo(String path) {
-        DriverManager.getDriver().get(configuration().url() + path);
-    }
-
-    protected void clearAndType(WebElement element, String value) {
-        element.clear();
-        element.sendKeys(value);
-    }
-
-    protected void click(WebElement element) {
-        try {
-            waitForClickable(element);
-            element.click();
-        } catch (Exception e) {
-            // Fallback to JS click
-            ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
-        }
-    }
-
-    protected void acceptAlert() {
-        AlertUtils.acceptAlert();
-    }
-
-    protected void dismissAlert() {
-        AlertUtils.dismissAlert();
-    }
-
-    protected String getAlertText() {
-        return AlertUtils.getAlertText();
-    }
-
-    protected void sendKeysToAlert(String text) {
-        AlertUtils.sendTextToAlert(text);
-    }
-
 }

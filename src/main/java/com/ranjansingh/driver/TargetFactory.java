@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URI;
+import java.util.HashMap;
 
 import static com.ranjansingh.config.ConfigurationManager.configuration;
 import static com.ranjansingh.driver.BrowserFactory.valueOf;
@@ -47,7 +48,7 @@ public class TargetFactory {
         return switch (target) {
             case LOCAL -> valueOf(configuration().browser().toUpperCase()).createLocalDriver();
             case LOCAL_SUITE -> valueOf(browser.toUpperCase()).createLocalDriver();
-            case SELENIUM_GRID -> createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
+            case SELENIUM_GRID, LAMBDATEST -> createRemoteInstance(valueOf(browser.toUpperCase()).getOptions());
             case TESTCONTAINERS -> valueOf(configuration().browser().toUpperCase()).createTestContainerDriver();
         };
     }
@@ -55,9 +56,22 @@ public class TargetFactory {
     private RemoteWebDriver createRemoteInstance(MutableCapabilities capability) {
         RemoteWebDriver remoteWebDriver = null;
         try {
-            String gridURL = format("http://%s:%s", configuration().gridUrl(), configuration().gridPort());
+            Target target = Target.get(configuration().target().toUpperCase());
+            String gridUrl = switch (target) {
+                case SELENIUM_GRID -> format("http://%s:%s", configuration().gridUrl(), configuration().gridPort());
+                case LAMBDATEST -> format("https://%s:%s@hub.lambdatest.com/wd/hub", configuration().ltUsername(), configuration().ltAccessKey());
+                default -> throw new IllegalArgumentException("Unsupported target for RemoteWebDriver: " + target);
+            };
+            if (target == Target.LAMBDATEST) {
+                HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+                ltOptions.put("build", "LambdaTest-Build");
+                ltOptions.put("name", "LambdaTest-Execution");
 
-            remoteWebDriver = new RemoteWebDriver(URI.create(gridURL).toURL(), capability);
+                capability.setCapability("LT:Options", ltOptions);
+
+            }
+
+            remoteWebDriver = new RemoteWebDriver(URI.create(gridUrl).toURL(), capability);
         } catch (java.net.MalformedURLException e) {
             logger.error("Grid URL is invalid or Grid is not available");
             logger.error("Browser: {}", capability.getBrowserName(), e);

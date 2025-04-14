@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Elias Nogueira
+ * Copyright (c) 2025 Ranjan Singh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.ranjansingh.utils.ActionUtils;
+
 public class LoginPage extends AbstractPageObject {
 
     private static final String PATH = "/login";
@@ -47,22 +49,22 @@ public class LoginPage extends AbstractPageObject {
 
     @Step
     public void open() {
-        super.navigateTo(PATH);
+        ActionUtils.navigateTo(PATH);
     }
 
     @Step
     public void fillUsername(String username) {
-        clearAndType(this.username, username);
+        ActionUtils.clearAndType(this.username, username);
     }
 
     @Step
     public void fillPassword(String password) {
-        clearAndType(this.password, password);
+        ActionUtils.clearAndType(this.password, password);
     }
 
     @Step
     public void clickLogin() {
-        click(loginButton);
+        ActionUtils.click(loginButton);
     }
 
     @Step

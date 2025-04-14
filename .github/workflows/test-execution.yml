@@ -1,21 +1,25 @@
 name: Build and Test
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+
 jobs:
   local-test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+
+    env:
+      USERNAME: ${{ secrets.HEROKU_USERNAME }}
+      PASSWORD: ${{ secrets.HEROKU_PASSWORD }}
+      TARGET: local
+      SUITE: local
+      BROWSER: chrome
+      HEADLESS: true
 
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: 23
+          java-version: 17
           distribution: oracle
 
       - name: Cache Maven packages
@@ -30,4 +34,4 @@ jobs:
         run: mvn -q -DskipTests package
 
       - name: Run local tests
-        run: mvn -q test -Pweb-execution -Dsuite=local -Dtarget=local -Dheadless=true -Dbrowser=chrome
+        run: mvn -q test -Pweb-execution -Dsuite=${{ env.SUITE }} -Dtarget=${{ env.TARGET }} -Dheadless=${{ env.HEADLESS }} -Dbrowser=${{ env.BROWSER }}

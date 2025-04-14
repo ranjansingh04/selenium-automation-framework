@@ -22,31 +22,33 @@
  * SOFTWARE.
  */
 
-package com.ranjansingh.data;
+package com.ranjansingh.utils;
 
-public class LoginTestData {
-    private final String username;
-    private final String password;
-    private final String expectedMessage;
-    private final boolean shouldSucceed;
-    private final String testId;
-    private final String tag;
+import com.ranjansingh.driver.DriverManager;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
-    public LoginTestData(String username, String password, String expectedMessage,
-                         boolean shouldSucceed, String testId, String tag) {
-        this.username = username;
-        this.password = password;
-        this.expectedMessage = expectedMessage;
-        this.shouldSucceed = shouldSucceed;
-        this.testId = testId;
-        this.tag = tag;
+import static com.ranjansingh.config.ConfigurationManager.configuration;
+import static com.ranjansingh.utils.WaitUtils.waitForClickable;
+
+public class ActionUtils {
+
+    public static void navigateTo(String path) {
+        DriverManager.getDriver().get(configuration().url() + path);
     }
 
-    // Getters
-    public String getUsername() { return username; }
-    public String getPassword() { return password; }
-    public String getExpectedMessage() { return expectedMessage; }
-    public boolean shouldSucceed() { return shouldSucceed; }
-    public String getTestId() { return testId; }
-    public String getTag() { return tag; }
+    public static void clearAndType(WebElement element, String value) {
+        element.clear();
+        element.sendKeys(value);
+    }
+
+    public static void click(WebElement element) {
+        try {
+            waitForClickable(element);
+            element.click();
+        } catch (Exception e) {
+            // Fallback to JS click
+            ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].click();", element);
+        }
+    }
 }
